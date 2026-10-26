@@ -4,6 +4,11 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>드론 Roll 자세 시뮬레이터</title>
+    <meta name="description" content="쿼드콥터 Roll 자세 제어 3D 시뮬레이터 (PID · Fuzzy-PID · 바람 외란)" />
+    <meta name="theme-color" content="#0f1720" />
+    <link rel="manifest" href="manifest.webmanifest" />
+    <link rel="icon" type="image/png" href="icon-192.png" />
+    <link rel="apple-touch-icon" href="icon-192.png" />
     <link rel="stylesheet" href="/src/style.css" />
   </head>
   <body>
@@ -92,30 +97,34 @@
               <option value="periodic">② 주기적 외란</option>
               <option value="random">③ 불규칙 외란(난류)</option>
               <option value="composite">④ 복합 외란</option>
+              <option value="urban">⑤ 도시 바람 (간헐 돌풍 + 난류)</option>
             </select><span></span>
           </div>
 
-          <div class="wind-group" data-show="gust periodic random composite">
+          <div class="wind-group" data-show="gust periodic random composite urban">
             <div class="field"><label for="direction">풍향 (0° = 옆바람)</label><input id="direction" type="number" step="15" min="-180" max="180" /><span>°</span></div>
           </div>
-          <div class="wind-group" data-show="composite">
+          <div class="wind-group" data-show="composite urban">
             <div class="field"><label for="meanWind">일정한 바람</label><input id="meanWind" type="number" step="0.5" /><span>m/s</span></div>
           </div>
-          <div class="wind-group" data-show="gust composite">
+          <div class="wind-group" data-show="gust composite urban">
             <div class="field"><label for="gustSpeed">돌풍 최대 풍속</label><input id="gustSpeed" type="number" step="0.5" /><span>m/s</span></div>
             <div class="field"><label for="gustStart">돌풍 시작 시각</label><input id="gustStart" type="number" step="0.1" min="0" /><span>s</span></div>
             <div class="field"><label for="gustDuration">돌풍 지속 시간</label><input id="gustDuration" type="number" step="0.1" min="0.1" /><span>s</span></div>
+          </div>
+          <div class="wind-group" data-show="urban">
+            <div class="field"><label for="gustRate">돌풍 빈도</label><input id="gustRate" type="number" step="0.05" min="0" /><span>회/s</span></div>
           </div>
           <div class="wind-group" data-show="periodic">
             <div class="field"><label for="periodicAmp">진폭</label><input id="periodicAmp" type="number" step="0.5" /><span>m/s</span></div>
             <div class="field"><label for="periodicFreq">주파수</label><input id="periodicFreq" type="number" step="0.1" min="0.05" /><span>Hz</span></div>
           </div>
-          <div class="wind-group" data-show="random composite">
+          <div class="wind-group" data-show="random composite urban">
             <div class="field"><label for="turbIntensity">난류 세기(표준편차)</label><input id="turbIntensity" type="number" step="0.5" min="0" /><span>m/s</span></div>
             <div class="field"><label for="turbTime">변화 빠르기(상관 시간)</label><input id="turbTime" type="number" step="0.05" min="0.02" /><span>s</span></div>
             <div class="field"><label for="seed">난수 시드</label><input id="seed" type="number" step="1" min="1" /><span></span></div>
           </div>
-          <div class="wind-group" data-show="gust periodic random composite">
+          <div class="wind-group" data-show="gust periodic random composite urban">
             <p class="hint">가정값 (보고서에 밝히기)</p>
             <div class="field"><label for="cd">항력계수 Cd</label><input id="cd" type="number" step="0.1" min="0" /><span></span></div>
             <div class="field"><label for="heightEff">유효 높이 h</label><input id="heightEff" type="number" step="0.01" min="0" /><span>m</span></div>
@@ -243,5 +252,6 @@
     </section>
 
     <script type="module" src="/src/main.js"></script>
+    <script type="module" src="/src/pwa.js"></script>
   </body>
 </html>
